@@ -1,18 +1,37 @@
-IMAGE_NAME = bottlerocket-bootstrap-container:latest
+# IMAGE_NAME is the full name of the container image being built.
+IMAGE_NAME ?= $(notdir $(shell pwd -P))$(IMAGE_ARCH_SUFFIX):$(IMAGE_VERSION)$(addprefix -,$(SHORT_SHA))
+# IMAGE_VERSION is the semver version that's tagged on the image.
+IMAGE_VERSION = $(shell cat VERSION)
+# SHORT_SHA is the revision that the container image was built with.
+SHORT_SHA ?= $(shell git describe --abbrev=8 --always --dirty='-dev' --exclude '*' || echo "unknown")
+# IMAGE_ARCH_SUFFIX is the runtime architecture designator for the container
+# image, it is appended to the IMAGE_NAME unless the name is specified.
+IMAGE_ARCH_SUFFIX ?= $(addprefix -,$(ARCH))
+# DESTDIR is where the release artifacts will be written.
+DESTDIR ?= .
+# DISTFILE is the path to the dist target's output file - the container image
+# tarball.
+DISTFILE ?= $(subst /,,$(DESTDIR))/$(subst /,_,$(IMAGE_NAME)).tar.gz
 
-.PHONY: all build clean
+UNAME_ARCH = $(shell uname -m)
+ARCH ?= $(lastword $(subst :, ,$(filter $(UNAME_ARCH):%,x86_64:amd64 aarch64:arm64)))
 
-# Run all build tasks for this container image
-all: build_amd64 build_arm64
+.PHONY: all build dist clean
 
-# Build the container image for the amd64 architecture
-build_amd64:
-	docker build --tag $(IMAGE_NAME)-amd64 -f Dockerfile .
+# Run all build tasks for this container image.
+all: build
 
-# Build the container image for the arm64 architecture
-build_arm64:
-	docker build --tag $(IMAGE_NAME)-arm64 -f Dockerfile .
+# Create a distribution container image tarball for release.
+dist: all
+	@mkdir -p $(dir $(DISTFILE))
+	docker save $(IMAGE_NAME) | gzip > $(DISTFILE)
 
-# Clean up the build artifacts (if there are any to clean)
+# Build the container image.
+build:
+	DOCKER_BUILDKIT=1 docker build $(DOCKER_BUILD_FLAGS) \
+		--tag $(IMAGE_NAME) \
+		--build-arg IMAGE_VERSION="$(IMAGE_VERSION)" \
+		-f Dockerfile . >&2
+
 clean:
-	rm -f $(IMAGE_NAME)
+	rm -f $(DISTFILE)
