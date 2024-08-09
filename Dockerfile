@@ -1,9 +1,8 @@
-FROM public.ecr.aws/amazonlinux/amazonlinux:2023
+FROM amazonlinux:2023
 
 # Install necessary packages
-RUN yum update -y 
-    
-RUN yum install -y \
+RUN yum update -y && \
+    yum install -y \
     aws-cli \
     jq \
     util-linux \
@@ -11,10 +10,8 @@ RUN yum install -y \
     xfsprogs \
     lvm2 \
     mdadm && \
-    yum clean all
-
-# Verify that all packages are installed
-RUN \
+    yum clean all && \
+    # Verify that all packages are installed
     command -v aws && \
     command -v jq && \
     command -v lsblk && \
@@ -25,6 +22,9 @@ RUN \
 
 # Copy the wrapper script into the container
 COPY bootstrap-script.sh /usr/local/bin/bootstrap-script.sh
+
+# Make the wrapper script executable
+RUN chmod +x /usr/local/bin/bootstrap-script.sh
 
 # Set the wrapper script as the entry point
 ENTRYPOINT ["/usr/local/bin/bootstrap-script.sh"]

@@ -1,7 +1,7 @@
-# Bottlerocket Bootstrap Container
+# Bottlerocket Control Container
 
-This is the bootstrap container for the [Bottlerocket](https://github.com/bottlerocket-os/bottlerocket) operating system. 
-This container image allows the user to provide their own script to run bootstrap commands to setup their own configuration during runtime. 
+This is the bootstrap container for the [Bottlerocket](https://github.com/bottlerocket-os/bottlerocket) operating system. This container 
+image allows the user to provide their own script to run bootstrap commands to setup their own configuration during runtime. 
 
 ## Using the Container Image
 
