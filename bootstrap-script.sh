@@ -2,6 +2,19 @@
 
 set -xeuo pipefail
 
+declare -r HOST_CERTS="/.bottlerocket/certs"
+
+# Link host certs if present into container & run update-ca-trust
+link_host_certs() {
+  for cert in $(ls -1 "${HOST_CERTS}"); do
+    ln -s "${HOST_CERTS}/${cert}" "/etc/pki/ca-trust/source/anchors/${cert}"
+  done
+  # Update the CA trust to pickup the new certificates
+  update-ca-trust
+}
+
+[[ -d "${HOST_CERTS}" ]] && link_host_certs
+
 # Full path to the base64-encoded user data
 USER_DATA_PATH='/.bottlerocket/bootstrap-containers/current/user-data'
 
