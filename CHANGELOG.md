@@ -1,3 +1,7 @@
+# 0.1.2
+
+* Rebuilt to get the latest AL2023 updates.
+
 # 0.1.1
 
 * Link host certificates if available. ([#4])
