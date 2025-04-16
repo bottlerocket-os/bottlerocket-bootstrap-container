@@ -1,3 +1,8 @@
+# 0.2.0
+* Add Hybrid nodes setup scripts. ([#7]) - Thanks @abhay-krishna!
+
+[#7]: https://github.com/bottlerocket-os/bottlerocket-bootstrap-container/pull/7
+
 # 0.1.4
 
 * Rebuilt to get the latest AL2023 updates.
