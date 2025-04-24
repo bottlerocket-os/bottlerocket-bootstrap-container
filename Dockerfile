@@ -40,7 +40,8 @@ RUN dnf update -y && \
         xfsprogs \
         lvm2 \
         mdadm \
-        rsync && \
+        rsync \
+        gettext && \
     dnf clean all
 
 # Verify that all packages are installed
@@ -52,12 +53,14 @@ RUN \
     command -v mkfs.xfs && \
     command -v lvm && \
     command -v mdadm && \
-    command -v rsync
+    command -v rsync && \
+    command -v envsubst
 
 # Copy the wrapper script and EKS Hybrid setup scripts into the container
 COPY bootstrap-script.sh /usr/local/bin/bootstrap-script.sh
 COPY eks-hybrid-ssm-setup.sh /usr/local/bin/eks-hybrid-ssm-setup
 COPY eks-hybrid-iam-ra-setup.sh /usr/local/bin/eks-hybrid-iam-ra-setup
+COPY aws-signing-helper-update.service.in /usr/share/bootstrap/aws-signing-helper-update.service.in
 
 # Copy the SSM agent from the builder stage
 COPY --from=builder /usr/bin/amazon-ssm-agent /usr/local/bin/amazon-ssm-agent

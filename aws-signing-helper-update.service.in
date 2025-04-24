@@ -1,0 +1,14 @@
+[Unit]
+Description=Service that runs aws_signing_helper update to keep the AWS credentials refreshed in ${EKS_HYBRID_SHARED_CREDENTIALS_FILE}.
+
+[Service]
+User=root
+Environment=AWS_SHARED_CREDENTIALS_FILE=${EKS_HYBRID_SHARED_CREDENTIALS_FILE}
+ExecStart=${SIGNING_HELPER_UPDATE_COMMAND}
+StandardOutput=journal
+StandardError=inherit
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
