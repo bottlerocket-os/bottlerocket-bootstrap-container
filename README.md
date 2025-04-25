@@ -6,10 +6,18 @@ This container image allows the user to provide their own script to run bootstra
 ## Using the Container Image
 
 For more information on settings, please refer to the [Bottlerocket Documentation](https://bottlerocket.dev/) in order to configure your files. 
-To use the container image, create a TOML file with the following configurations. 
+The automatically updated bootstrap container source will be used by default, if source is not specified in the configuration.
+To use default container image, create a TOML file with the following configurations.
 
 ### Sample TOML configuration
 
+```toml
+[settings.bootstrap-containers.myscript]
+mode="once"
+user-data="user-base64-encoded-bootstrap-script"
+```
+
+Below is the configuration to use the custom source.
 ```toml
 [settings.bootstrap-containers.myscript]
 source="<URI to ECR Repository for this Bootstrap Container>"
@@ -53,7 +61,6 @@ For example, the TOML file should look like the below if you base64 the given us
 
 ```toml
 [settings.bootstrap-containers.bear]
-source = "<URI to ECR Repository for this Bootstrap Container>"
 mode = "once"
 user-data = "IyEvdXNyL2Jpbi9lbnYgc2gKc2V0IC1ldW8gcGlwZWZhaWwKCiMgQ3JlYXRlIHRoZSBkaXJlY3RvcnkKbWtkaXIgLXAgL3Zhci9saWIvbXlfZGlyZWN0b3J5CgojIFNldCBBUEkgY2xpZW50IGNvbmZpZ3VyYXRpb25zCmFwaWNsaWVudCBzZXQgLS1qc29uICd7InNldHRpbmdzIjogeyJvY2ktZGVmYXVsdHMiOiB7InJlc291cmNlLWxpbWl0cyI6IHsibWF4LW9wZW4tZmlsZXMiOiB7InNvZnQtbGltaXQiOiA0Mjk0OTY3Mjk2LCAiaGFyZC1saW1pdCI6IDg1ODk5MzQ1OTJ9fX19fScKCiMgTG9hZCBrZXJuZWwgbW9kdWxlCmlmIGNvbW1hbmQgLXYgbW9kcHJvYmUgPiAvZGV2L251bGwgMj4mMTsgdGhlbgogIG1vZHByb2JlIGR1bW15CmZpCgplY2hvICJVc2VyLWRhdGEgc2NyaXB0IGV4ZWN1dGVkLiIK"
 ```
