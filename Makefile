@@ -73,7 +73,7 @@ check-iam-ra-setup:
 	@echo "Running IAM-RA setup check"
 	@OUTPUT=$$(docker run --rm --entrypoint /usr/bin/bash \
 		$(IMAGE_NAME) \
-		-c "cp /usr/bin/true /usr/bin/apiclient; eks-hybrid-iam-ra-setup --certificate=${TEST_NODE_CERT} --key=${TEST_NODE_KEY} --dry-run=true 2>&1 || true"); \
+		-c "eks-hybrid-iam-ra-setup --certificate=${TEST_NODE_CERT} --key=${TEST_NODE_KEY} --dry-run=true 2>&1 || true"); \
 	if echo "$$OUTPUT" | grep -q "${TEST_NODE_CERT}"; then \
 		echo "Test failed: certificate content found in output"; \
 		exit 1; \
