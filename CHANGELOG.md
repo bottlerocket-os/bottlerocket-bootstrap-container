@@ -1,3 +1,8 @@
+# 0.2.1
+* Add Hybrid nodes support for eks-pod-identity-agent with IAM-RA. ([#13]) - Thanks @abhay-krishna!
+
+[#13]: https://github.com/bottlerocket-os/bottlerocket-bootstrap-container/pull/13
+
 # 0.2.0
 * Add Hybrid nodes setup scripts. ([#7]) - Thanks @abhay-krishna!
 
