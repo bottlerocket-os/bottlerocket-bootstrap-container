@@ -7,7 +7,6 @@ HOST_ROOTFS="/.bottlerocket/rootfs"
 SSM_AGENT_PERSISTENT_STATE_DIR="${HOST_ROOTFS}/local/host-containers/control/ssm"
 SSM_AGENT_REGISTRATION="${SSM_AGENT_PERSISTENT_STATE_DIR}/registration"
 mkdir -p "${SSM_AGENT_PERSISTENT_STATE_DIR}"
-ENABLE_CREDENTIALS_FILE="false"
 SSM_ACTIVATION_ID_REGEX="^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
 
 for opt in "$@"; do
@@ -16,7 +15,6 @@ for opt in "$@"; do
         --region=*) AWS_REGION="${optarg}" ;;
         --activation-code=*) SSM_ACTIVATION_CODE="${optarg}" ;;
         --activation-id=*) SSM_ACTIVATION_ID="${optarg}" ;;
-        --enable-credentials-file=*) ENABLE_CREDENTIALS_FILE="${optarg}" ;;
     esac
 done
 
@@ -71,11 +69,9 @@ symlink_aws_creds() {
     control_creds="${control_aws_dir}/credentials"
     host_creds="${HOST_ROOTFS}/root/.aws/credentials"
     ln -srnf "${control_creds}" "${host_creds}"
-    if [ "${ENABLE_CREDENTIALS_FILE}" = "true" ]; then
-        hybrid_nodes_pod_identity_aws_dir="${HOST_ROOTFS}/var/eks-hybrid/.aws"
-        mkdir -p "$(dirname "${hybrid_nodes_pod_identity_aws_dir}")"
-        ln -sf "${control_aws_dir_relative_to_host}" "${hybrid_nodes_pod_identity_aws_dir}"
-    fi
+    hybrid_nodes_pod_identity_aws_dir="${HOST_ROOTFS}/var/eks-hybrid/.aws"
+    mkdir -p "$(dirname "${hybrid_nodes_pod_identity_aws_dir}")"
+    ln -sf "${control_aws_dir_relative_to_host}" "${hybrid_nodes_pod_identity_aws_dir}"
 }
 
 if [ ! -s "${SSM_AGENT_REGISTRATION}" ]; then
