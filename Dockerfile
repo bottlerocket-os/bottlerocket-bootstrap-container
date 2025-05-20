@@ -41,7 +41,11 @@ RUN dnf update -y && \
         lvm2 \
         mdadm \
         rsync \
-        gettext && \
+        gettext \
+        tar \
+        gzip \
+        unzip \
+    && \
     dnf clean all
 
 # Verify that all packages are installed
