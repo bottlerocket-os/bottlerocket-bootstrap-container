@@ -1,3 +1,11 @@
+# 0.2.2
+* Always setup symlinks required for EKS Pod Identity Agent. ([#15]) - Thanks @abhay-krishna!
+* Update SSM version to 3.3.2471.0. ([#16])
+* Add tar, gzip, and unzip packages. ([#16])
+
+[#15]: https://github.com/bottlerocket-os/bottlerocket-bootstrap-container/pull/15
+[#16]: https://github.com/bottlerocket-os/bottlerocket-bootstrap-container/pull/16
+
 # 0.2.1
 * Add Hybrid nodes support for eks-pod-identity-agent with IAM-RA. ([#13]) - Thanks @abhay-krishna!
 
