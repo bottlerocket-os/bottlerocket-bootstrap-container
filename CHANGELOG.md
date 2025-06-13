@@ -1,3 +1,7 @@
+# 0.2.3
+* Update SSM version to 3.3.2656.0
+* Rebuilt to get the latest AL2023 updates.
+
 # 0.2.2
 * Always setup symlinks required for EKS Pod Identity Agent. ([#15]) - Thanks @abhay-krishna!
 * Update SSM version to 3.3.2471.0. ([#16])
