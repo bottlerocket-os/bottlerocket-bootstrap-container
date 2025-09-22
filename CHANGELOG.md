@@ -1,3 +1,6 @@
+# 0.2.6
+* Rebuilt to get the latest AL2023 updates.
+
 # 0.2.5
 * Rebuilt to get the latest AL2023 updates.
 
