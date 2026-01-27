@@ -1,3 +1,6 @@
+# 0.2.12
+* Rebuilt to get the latest AL2023 updates.
+
 # 0.2.11
 * Update SSM version to 3.3.3598.0
 
