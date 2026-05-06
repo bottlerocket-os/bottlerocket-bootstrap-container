@@ -31,7 +31,7 @@ RUN : "${IMAGE_VERSION:?IMAGE_VERSION is required to build}"
 LABEL "org.opencontainers.image.version"="$IMAGE_VERSION"
 
 # Install necessary packages
-RUN dnf update -y && \
+RUN dnf upgrade -y --releasever=latest && \
     dnf install -y \
         aws-cli \
         jq \
