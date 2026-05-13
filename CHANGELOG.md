@@ -1,3 +1,10 @@
+# 0.3.0
+* Update SSM version to 3.3.4364.0 ([#36])
+* Replace `dnf update` with `dnf upgrade --releasever=latest` ([#34])
+
+[#34]: https://github.com/bottlerocket-os/bottlerocket-bootstrap-container/pull/34
+[#36]: https://github.com/bottlerocket-os/bottlerocket-bootstrap-container/pull/36
+
 # 0.2.16
 * Update SSM version to 3.3.4268.0
 
