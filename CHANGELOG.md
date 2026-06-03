@@ -1,3 +1,6 @@
+# 0.3.1
+* Update SSM version to 3.3.4624.0
+
 # 0.3.0
 * Update SSM version to 3.3.4364.0 ([#36])
 * Replace `dnf update` with `dnf upgrade --releasever=latest` ([#34])
