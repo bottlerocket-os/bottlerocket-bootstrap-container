@@ -17,7 +17,7 @@ UNAME_ARCH = $(shell uname -m)
 ARCH ?= $(lastword $(subst :, ,$(filter $(UNAME_ARCH):%,x86_64:amd64 aarch64:arm64)))
 
 # SSM_AGENT_VERSION is the SSM Agent's distributed RPM Version to install.
-SSM_AGENT_VERSION ?= 3.3.4624.0
+SSM_AGENT_VERSION ?= 3.3.4793.0
 
 TEST_ACTIVATION_ID=abcdef12-3456-7890-abcd-ef1234567890
 TEST_ACTIVATION_CODE=abcdef1234567890abcdef
